@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusFleet | Modern E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .gradient-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-link:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width .3s;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .category-chip {
+            transition: all 0.3s ease;
+        }
+        
+        .category-chip:hover {
+            transform: scale(1.05);
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .newsletter-input {
+            border: none;
+            border-bottom: 2px solid var(--dark);
+            background: transparent;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Top Notification Bar -->
+    <div class="bg-black text-white py-2 text-center text-sm">
+        Free shipping on all orders over $50 | Use code: NEXUS20 for 20% off
+    </div>
+
+  <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-atom text-2xl mr-2 text-blue-500"></i>
+                        <span class="text-xl font-bold">NexusFleet</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Shop</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Categories</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-search text-gray-500 hover:text-blue-500 cursor-pointer"></i>
+                    </div>
+                    <div class="relative">
+                        <i class="fas fa-user text-gray-500 hover:text-blue-500 cursor-pointer"></i>
+                    </div>
+                    <div class="relative">
+                        <i class="fas fa-shopping-cart text-gray-500 hover:text-blue-500 cursor-pointer"></i>
+                        <div class="cart-badge">3</div>
+                    </div>
+                    <div class="md:hidden">
+                        <i class="fas fa-bars text-gray-500 hover:text-blue-500 cursor-pointer"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 md:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Shop Smarter, Not Harder</h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">Discover premium quality products with our carefully curated collections designed for modern living.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition duration-300">Shop Now</button>
+                        <button class="border-2 border-blue-500 text-blue-500 hover:bg-blue-50 px-8 py-3 rounded-lg font-medium transition duration-300">Learn More</button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/17b70002-df4c-4c68-bdcf-3e776e7209c2.png" alt="Stylish young woman holding shopping bags while browsing in a modern boutique store" class="rounded-xl shadow-xl w-full max-w-md mx-auto fl
+oating-animation">
+                    <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-100 rounded-full -z-10"></div>
+                    <div class="absolute -top-8 -right-8 w-24 h-24 bg-green-100 rounded-full -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+   <!-- Services Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-truck text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Free Shipping</h3>
+                    <p class="text-gray-600">On all orders over $50</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-sync-alt text-green-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Easy Returns</h3>
+                    <p class="text-gray-600">30-day return policy</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-lock text-yellow-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Secure Payment</h3>
+                    <p class="text-gray-600">100% secure transactions</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-headset text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">Dedicated customer service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">Shop Categories</h2>
+                <a href="#" class="text-blue-500 hover:underline flex items-center">
+                    View All <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="#" class="category-chip bg-white p-6 rounded-xl shadow-sm text-center transition-all duration-300 hover:shadow-md">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-blue-50 flex items-center justify-center">
+                        <i class="fas fa-tshirt text-blue-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-1">Fashion</h3>
+                    <p class="text-gray-500 text-sm">420 Products</p>
+                </a>
+                <a href="#" class="category-chip bg-white p-6 rounded-xl shadow-sm text-center transition-all duration-300 hover:shadow-md">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-green-50 flex items-center justify-center">
+                        <i class="fas fa-desktop text-green-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-1">Electronics</h3>
+                    <p class="text-gray-500 text-sm">356 Products</p>
+                </a>
+                <a href="#" class="category-chip bg-white p-6 rounded-xl shadow-sm text-center transition-all duration-300 hover:shadow-md">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-yellow-50 flex items-center justify-center">
+                        <i class="fas fa-home text-yellow-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-1">Home & Living</h3>
+                    <p class="text-gray-500 text-sm">278 Products</p>
+                </a>
+                <a href="#" class="category-chip bg-white p-6 rounded-xl shadow-sm text-center transition-all duration-300 hover:shadow-md">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-purple-50 flex items-center justify-center">
+                        <i class="fas fa-basketball-ball text-purple-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-1">Sports</h3>
+                    <p class="text-gray-500 text-sm">132 Products</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">Featured Products</h2>
+                <a href="#" class="text-blue-500 hover:underline flex items-center">
+                    View All <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a0d0bec2-3ed4-48db-975d-95138b87590b.png" alt="Premium wireless headphones with noise cancellation feature in sleek black color" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <i class="far fa-heart text-white bg-black bg-opacity-50 p-2 rounded-full"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold">Nexus Pro Headphones</h3>
+                                <p class="text-gray-500 text-sm">Wireless, Noise Cancelling</p>
+                            </div>
+                            <div class="text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="font-bold text-lg">$199.99</span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+      <!-- Product 2 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fe9a9536-fe02-4b74-9691-9126e370b8d7.png" alt="Modern smartwatch with health tracking features on a wooden table" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <i class="far fa-heart text-white bg-black bg-opacity-50 p-2 rounded-full"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold">Quantum Smartwatch</h3>
+                                <p class="text-gray-500 text-sm">Health & Fitness Tracker</p>
+                            </div>
+                            <div class="text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="font-bold text-lg">$169.99</span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3264deaa-b1a3-4677-a7b8-6da20cc151cc.png" alt="Stylish backpack with multiple compartments and laptop sleeve" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <i class="far fa-heart text-white bg-black bg-opacity-50 p-2 rounded-full"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold">Urban Explorer Backpack</h3>
+                                <p class="text-gray-500 text-sm">Waterproof, 25L Capacity</p>
+                            </div>
+                            <div class="text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="font-bold text-lg">$89.99</span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+    <!-- Product 4 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/434a66ef-1009-4059-af93-181c8163edfe.png" alt="Minimalist ceramic coffee mug set with geometric patterns" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <i class="far fa-heart text-white bg-black bg-opacity-50 p-2 rounded-full"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold">Ceramic Coffee Set</h3>
+                                <p class="text-gray-500 text-sm">Set of 4 mugs</p>
+                            </div>
+                            <div class="text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="font-bold text-lg">$45.99</span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sale Banner -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 md:p-12 text-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Summer Sale!</h2>
+                        <p class="text-lg mb-6 max-w-lg">Up to 40% off on selected items. Limited time offer, shop now before it's gone!</p>
+                        <div class="flex flex-wrap gap-4 items-center mb-8">
+                            <div class="text-center bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                                <div class="font-bold text-2xl">04</div>
+                                <div class="text-xs">Days</div>
+                            </div>
+                            <div class="text-center bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                                <div class="font-bold text-2xl">12</div>
+                                <div class="text-xs">Hours</div>
+                            </div>
+                            <div class="text-center bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                                <div class="font-bold text-2xl">35</div>
+                                <div class="text-xs">Minutes</div>
+                            </div>
+                            <div class="text-center bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                                <div class="font-bold text-2xl">48</div>
+                                <div class="text-xs">Seconds</div>
+                            </div>
+                        </div>
+                        <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-bold transition duration-300">
+                            Shop the Sale <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="hidden md:flex justify-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/aa37b1fd-c74a-4c8c-a065-7dfe0727d7ed.png" alt="Stylish woman summer outfit showcasing new summer collection with sunglasses and straw hat" class="w-full max-w-md rounded-2xl shadow-x
+l">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/30477f74-92c6-4ac0-b025-eda3b2bb8c35.png" alt="Portrait of satisfied female customer Sarah Johnson smiling with city background" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <div class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"I absolutely love my new headphones! The sound quality is incredible and the battery life lasts for days. Will definitely be shopping here again."</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0675fb22-4779-4937-8ea2-336378da194b.png" alt="Portrait of happy male customer Michael Chen wearing glasses outdoors" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <div class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Fast shipping and excellent customer service. The ceramic mugs are even better in person. The packaging was eco-friendly too which I really appreciated."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/99396c9b-314b-428a-a019-95c190638dab.png" alt="Portrait of delighted customer Priya Patel laughing with hands folded" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Priya Patel</h4>
+                            <div class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The smartwatch has completely changed my fitness routine. So many features packed into a stylish design. NexusFleet is now my go-to for electronics."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                    <p class="text-gray-300 max-w-lg mb-6">Subscribe to our newsletter and be the first to know about new arrivals, exclusive offers, and special events.</p>
+                </div>
+                <div>
+                    <form class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="Your email address" class="newsletter-input text-white placeholder-gray-400 py-3 px-4 flex-grow focus:ring-0 focus:border-blue-500">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition duration-300 whitespace-nowrap">Subscribe</button>
+                    </form>
+                    <p class="text-gray-400 text-sm mt-2">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+  <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">All Products</a></li>
+                        <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition">Featured</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sale Items</a></li>
+                        <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition">Track Order</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">About Us</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-500 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-pink-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-400 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-red-500 transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <h3 class="text-white font-bold mb-2">Payment Methods</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="bg-gray-700 px-2 py-1 rounded">
+                            <i class="fab fa-cc-visa"></i>
+                        </div>
+                        <div class="bg-gray-700 px-2 py-1 rounded">
+                            <i class="fab fa-cc-mastercard"></i>
+                        </div>
+                        <div class="bg-gray-700 px-2 py-1 rounded">
+                            <i class="fab fa-cc-paypal"></i>
+                        </div>
+                        <div class="bg-gray-700 px-2 py-1 rounded">
+                            <i class="fab fa-cc-apple-pay"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i class="fas fa-atom text-xl mr-2 text-blue-500"></i>
+                    <span class="text-xl font-bold">NexusFleet</span>
+                </div>
+                <div class="text-sm">
+                    © 2023 NexusFleet. All rights reserved. | <a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.md\\:hidden i.fa-bars');
+            const mobileMenu = document.querySelector('.hidden.md\\:flex.items-center.space-x-8');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('block');
+            });
+            
+            // Cart functionality
+            const addToCartButtons = document.querySelectorAll('button.bg-blue-500');
+            const cartBadge = document.querySelector('.cart-badge');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update cart count
+                    let currentCount = parseInt(cartBadge.textContent);
+                    cartBadge.textContent = currentCount + 1;
+                    
+                    // Show added to cart animation
+                    this.innerHTML = '<i class="fas fa-check mr-2"></i> Added';
+                    this.classList.remove('bg-blue-500');
+                    this.classList.add('bg-green-500');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = 'Add to Cart';
+                        this.classList.remove('bg-green-500');
+                        this.classList.add('bg-blue-500');
+                    }, 2000);
+                });
+            });
+            
+            // Countdown timer for sale banner
+            function updateCountdown() {
+                const daysElement = document.querySelector('.bg-white\\/20:nth-child(1) .text-2xl');
+                const hoursElement = document.querySelector('.bg-white\\/20:nth-child(2) .text-2xl');
+                const minutesElement = document.querySelector('.bg-white\\/20:nth-child(3) .text-2xl');
+                const secondsElement = document.querySelector('.bg-white\\/20:nth-child(4) .text-2xl');
+                
+                const now = new Date();
+                const endDate = new Date();
+                endDate.setDate(now.getDate() + 4); // 4 days from now
+                
+                const totalSeconds = (endDate - now) / 1000;
+                
+                const days = Math.floor(totalSeconds / 3600 / 24);
+                const hours = Math.floor(totalSeconds / 3600) % 24;
+                const minutes = Math.floor(totalSeconds / 60) % 60;
+                const seconds = Math.floor(totalSeconds) % 60;
+                
+                daysElement.textContent = days.toString().padStart(2, '0');
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>
